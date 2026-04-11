@@ -1,0 +1,23 @@
+<h2>PROVAS</h2>
+<div style="width:70%; height: 50%">
+  <canvas
+    baseChart
+    [data]="barChartData()"
+    [options]="barChartOptions()"
+    [type]="'bar'">
+  </canvas>
+</div>
+<div class="button-row">
+  <button matFab extended (click)="openAddExamDialog()">
+    <mat-icon>add</mat-icon>
+    Adicionar
+  </button>
+  <button matFab extended (click)="openEditExamDialog()">
+    <mat-icon>edit</mat-icon>
+    Editar
+  </button>
+  <button matFab extended (click)="openDeleteExamDialog()">
+    <mat-icon>delete</mat-icon>
+    Remover
+  </button>
+</div>

@@ -1,0 +1,25 @@
+.full-width {
+  width: 100%;
+}
+
+.equal-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+table[mat-table] {
+  border: 1px solid var(--mat-sys-outline);
+}
+
+table[mat-table] td {
+  border-bottom-style: none;
+}
+
+input {
+  width: 100%;
+  display: block;
+}
+
+::ng-deep .mat-mdc-select-arrow-wrapper {
+  margin-left: 8px;
+}

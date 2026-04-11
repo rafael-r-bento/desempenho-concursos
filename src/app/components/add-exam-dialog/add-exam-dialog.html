@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Adicionar prova</h2>
+<mat-dialog-content>
+  <form [formGroup]="examForm">
+    <p>Nome da prova</p>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="name" />
+      @if (examForm.controls.name.invalid) {
+        <mat-error>Nome obrigatório</mat-error>
+      }
+    </mat-form-field>
+    <p>Data da prova</p>
+    <mat-form-field class="full-width">
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (examForm.controls.date.invalid) {
+        <mat-error>Data obrigatória</mat-error>
+      }
+    </mat-form-field>
+    <p>Quantidade de questões</p>
+    <mat-form-field class="full-width">
+      <mat-select formControlName="numberOfQuestions">
+        <mat-option [value]="120">120</mat-option>
+        <mat-option [value]="130">130</mat-option>
+        <mat-option [value]="160">160</mat-option>
+        <mat-option [value]="200">200</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancelar</button>
+  <button matButton (click)="save()" cdkFocusInitial>Salvar</button>
+</mat-dialog-actions>

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Remover prova</h2>
+<mat-dialog-content>
+  <form [formGroup]="examForm">
+    <p>Nome da prova</p>
+    <mat-form-field class="full-width">
+      <select matNativeControl formControlName="name">
+        @for (examName of examNameList(); track examName) {
+        <option [ngValue]="examName">{{ examName }}</option>
+        }
+      </select>
+      @if (examForm.controls.name.invalid) {
+        <mat-error>Nome obrigatório</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancelar</button>
+  <button matButton (click)="confirm()" cdkFocusInitial>Confirmar</button>
+</mat-dialog-actions>

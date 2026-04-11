@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Editar prova {{ examForm.value.name }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="examForm">
+    <p>Nome da prova</p>
+    <mat-form-field class="full-width">
+      <mat-select formControlName="name">
+        @for (examName of examNameList(); track examName) {
+        <mat-option [value]="examName">{{ examName }}</mat-option>
+        }
+      </mat-select>
+      @if (examForm.controls.name.invalid) {
+        <mat-error>Nome obrigatório</mat-error>
+      }
+    </mat-form-field>
+    @if (questionsFormArray.length > 0) {
+    <table mat-table class="equal-table" [dataSource]="questionsFormArray.controls">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Questão</th>
+        <td mat-cell *matCellDef="let group">{{ group.value.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="answer">
+        <th mat-header-cell *matHeaderCellDef>Resposta</th>
+        <td mat-cell *matCellDef="let group">
+          <input matInput [formControl]="group.controls.answer" />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let group">
+          <mat-select [formControl]="group.controls.status">
+            <mat-option value="nulo">Anulada</mat-option>
+            <mat-option value="erro">Não respondida</mat-option>
+            <mat-option value="duvida">Investigação</mat-option>
+            <mat-option value="acerto">Respondida</mat-option>
+          </mat-select>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancelar</button>
+  <button matButton (click)="save()" cdkFocusInitial>Salvar</button>
+</mat-dialog-actions>

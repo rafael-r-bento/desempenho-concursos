@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 16px;
+}
+
+@media (max-width: 500px) {
+  .button-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.button-row button {
+  width: 100%;
+  justify-content: center;
+}
