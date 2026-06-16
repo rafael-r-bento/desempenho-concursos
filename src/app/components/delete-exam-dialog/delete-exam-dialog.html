@@ -3,11 +3,11 @@
   <form [formGroup]="examForm">
     <p>Nome da prova</p>
     <mat-form-field class="full-width">
-      <select matNativeControl formControlName="name">
+      <mat-select formControlName="name">
         @for (examName of examNameList(); track examName) {
-        <option [ngValue]="examName">{{ examName }}</option>
+        <mat-option [value]="examName">{{ examName }}</mat-option>
         }
-      </select>
+      </mat-select>
       @if (examForm.controls.name.invalid) {
         <mat-error>Nome obrigatório</mat-error>
       }
