@@ -6,7 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
-import { Exam } from 'src/app/models/exam';
+import { Exam } from 'src/app/exams/exam';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,23 +7,25 @@ import {
   Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
-  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ExamService } from 'src/app/services/exam-service';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { ExamService } from 'src/app/exams/exam-service';
 
 @Component({
-  selector: 'app-delete-exam-dialog',
+  selector: 'app-add-exam-dialog',
   imports: [
     FormsModule,
     MatButtonModule,
+    MatDatepickerModule,
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
@@ -32,13 +34,12 @@ import { ExamService } from 'src/app/services/exam-service';
     MatSelectModule,
     ReactiveFormsModule
   ],
-  templateUrl: './delete-exam-dialog.html',
-  styleUrl: './delete-exam-dialog.css',
+  templateUrl: './add-exam-dialog.html',
+  styleUrl: './add-exam-dialog.css',
 })
-export class DeleteExamDialog {
-  readonly dialogRef = inject(MatDialogRef<DeleteExamDialog>);
+export class AddExamDialog {
+  readonly dialogRef = inject(MatDialogRef<AddExamDialog>);
   private examService = inject(ExamService);
-  examNameList = signal(inject<string[]>(MAT_DIALOG_DATA));
 
   examForm = new FormGroup(
     {
@@ -46,6 +47,14 @@ export class DeleteExamDialog {
         nonNullable: true,
         validators: [Validators.required]
       }),
+      date: new FormControl<Date | null>(null, {
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
+      numberOfQuestions: new FormControl<number>(120, {
+        nonNullable: true,
+        validators: [Validators.required]
+      })
     }
   );
 
@@ -53,7 +62,7 @@ export class DeleteExamDialog {
     this.dialogRef.close(false);
   }
 
-  confirm(): void {
+  save(): void {
     if (this.examForm.invalid) {
       this.examForm.markAllAsTouched();
       return;
@@ -61,9 +70,11 @@ export class DeleteExamDialog {
 
     const dto = {
       name: this.examForm.controls.name.value,
+      date: this.examForm.controls.date.value,
+      questions: this.examForm.controls.numberOfQuestions.value
     };
 
-    this.examService.deleteExam(dto).subscribe((response) => {
+    this.examService.addExam(dto).subscribe((response) => {
       console.log(response.message);
       this.dialogRef.close(true);
     });

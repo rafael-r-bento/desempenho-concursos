@@ -19,8 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { Exam, Question } from 'src/app/models/exam';
-import { ExamService } from 'src/app/services/exam-service';
+import { Exam, Question } from 'src/app/exams/exam';
+import { ExamService } from 'src/app/exams/exam-service';
 
 type QuestionForm = FormGroup<{
   id: FormControl<number>;
