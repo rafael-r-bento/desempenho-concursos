@@ -83,7 +83,7 @@ export class Chart implements OnInit {
     });
   }
 
-  countByQuestionStatus(questionStatus: String): number[] {
+  countByQuestionStatus(questionStatus: string): number[] {
     return this.exams.map(exam =>
       exam.questions.filter(q => q.status === questionStatus).length
     );

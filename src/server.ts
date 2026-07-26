@@ -14,11 +14,11 @@ const app = express();
 app.use(express.json());
 const angularApp = new AngularNodeAppEngine();
 
-const fs = require("fs");
+import * as fs from 'fs';
 
 app.get('/api/exams', (req, res) => {
   try {
-    const exams = JSON.parse(fs.readFileSync("exams.json"));
+    const exams = JSON.parse(fs.readFileSync("exams.json", "utf-8"));
     res.send(exams);
   } catch(error: unknown) {
     if (error instanceof Error) {
@@ -45,7 +45,7 @@ app.post('/api/exams', (req, res) => {
         date: req.body.date,
         questions: questions
       };
-      const exams = JSON.parse(fs.readFileSync("exams.json"));
+      const exams = JSON.parse(fs.readFileSync("exams.json", "utf-8"));
       const newExamsList = [...exams, newExam].sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
       });
@@ -72,7 +72,7 @@ app.patch('/api/exams', (req, res) => {
     const name = req.body.name;
     if (name) {
       const modifications = req.body;
-      const currentExams = JSON.parse(fs.readFileSync("exams.json"));
+      const currentExams = JSON.parse(fs.readFileSync("exams.json", "utf-8"));
       const modifiedIndex = currentExams.findIndex((exam: Exam) => exam.name === name);
       const changedExam = { ...currentExams[modifiedIndex], ...modifications};
       currentExams[modifiedIndex] = changedExam;
@@ -94,7 +94,7 @@ app.delete('/api/exams', (req, res) => {
   try {
     const name = req.body.name;
     if (name) {
-      const exams = JSON.parse(fs.readFileSync("exams.json"));
+      const exams = JSON.parse(fs.readFileSync("exams.json", "utf-8"));
       const filteredExams = exams.filter((exam: Exam) => exam.name !== name);
       fs.writeFileSync("exams.json", JSON.stringify(filteredExams));
       res.send({ message: 'Prova deletada com sucesso' });
