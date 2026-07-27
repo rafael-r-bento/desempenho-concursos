@@ -21,6 +21,7 @@ export class Chart implements OnInit {
   readonly dialog = inject(MatDialog);
   private examService = inject(ExamService);
   exams: Exam[] = [];
+  totalByQuestionStatus = signal<number[]>([0, 0, 0, 0]);
   barChartData = signal<ChartConfiguration<'bar'>['data']>({
     datasets: []
   });
@@ -69,13 +70,14 @@ export class Chart implements OnInit {
               stack: 'provas'
             },
             {
-              data: this.countByQuestionStatus("acerto"),
               label: 'Respondidas',
+              data: this.countByQuestionStatus("acerto"),
               backgroundColor: '#008000',
               stack: 'provas'
             }
           ]
         });
+        this.updateTotalByQuestionStatus();
       },
       error: (error) => {
         console.error('Error fetching exams:', error);
@@ -93,6 +95,19 @@ export class Chart implements OnInit {
     return this.exams.map(exam =>
       exam.name
     );
+  }
+
+  updateTotalByQuestionStatus() {
+    const statuses: string[] = ["nulo", "erro", "duvida", "acerto"];
+    for (const [index, status] of statuses.entries()) {
+      this.totalByQuestionStatus.update(currentTotalByQuestionStatus => {
+        const newTotalByQuestionStatus = [...currentTotalByQuestionStatus];
+        newTotalByQuestionStatus[index] = this.countByQuestionStatus(status).reduce(
+          (acc, curr) => acc + curr, 0
+        );
+        return newTotalByQuestionStatus;
+      });
+    }
   }
 
   openAddExamDialog(): void {
