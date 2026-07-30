@@ -5,11 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
-import { ExamService } from 'src/app/exams/exam-service';
-import { Exam } from 'src/app/exams/exam';
-import { AddExamDialog } from 'src/app/exams/add-exam-dialog/add-exam-dialog';
-import { EditExamDialog } from 'src/app/exams/edit-exam-dialog/edit-exam-dialog';
-import { DeleteExamDialog } from 'src/app/exams/delete-exam-dialog/delete-exam-dialog';
+import { ExamService } from '@app/exams/exam-service';
+import { Exam } from '@app/exams/exam';
+import { AddExamDialog } from '@app/exams/add-exam-dialog/add-exam-dialog';
+import { EditExamDialog } from '@app/exams/edit-exam-dialog/edit-exam-dialog';
+import { DeleteExamDialog } from '@app/exams/delete-exam-dialog/delete-exam-dialog';
 
 @Component({
   selector: 'app-chart',

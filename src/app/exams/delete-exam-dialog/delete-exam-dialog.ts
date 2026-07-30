@@ -17,7 +17,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ExamService } from 'src/app/exams/exam-service';
+import { ExamService } from '@app/exams/exam-service';
 
 @Component({
   selector: 'app-delete-exam-dialog',
